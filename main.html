@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head> 
+<meta charset="utf-8" />
+        <title>Samurai Jack</title>
+        <link rel="stylesheet" href="css/style.css"/>
+		<script type="text/javascript" src = "js/tile.js"></script>
+		<script type="text/javascript" src = "js/map.js"></script>
+		<script type="text/javascript" src = "js/perso.js"></script>
+		<script type="text/javascript" src = "js/enemy.js"></script>
+</head>
+<body onkeydown="deplacement(event)"  >
+
+<canvas id="canvas" width="640" height="640">
+    Votre navigateur ne supporte pas canvas.
+</canvas>
+
+<script>
+function launch()// fonction callback appellé uniquement quand les images de tile et jack ont été chargées
+{
+	if(tile.image.isReady && jack.image.isReady)// une fois tile chargé on peut créer la carte qui dépend de tile.
+	{
+		console.log("Fonction launch is ready");
+		carte = new Map(5,20,tile); //creation de l'ensemble des maps dans un objet Map ( contient une matrice 3D et les textures)
+		carte.aff(0);
+	}
+	jack.aff();
+	mob.aff();
+}	
+
+	
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var tile = new Tileset("image/texture3.png");// creation de l'objet qui contient les textures
+	var jack = new Perso ("image/jack.png",10,10,0); //jack est créer aux coordonés 10,10 sur la map 0 ( corespond à map.map[0][10][10])
+	var mob = new Enemy("image/mob.png", 15, 17, 0);
+	var carte = "lol"; // Objet carte créer dans la fonction launch
+	
+	timeoutVar = setInterval(Update, 500);
+	function Update()
+	{
+		updateAI();
+	}
+</script>
+
+</body>
+</html>
