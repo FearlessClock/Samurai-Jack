@@ -173,3 +173,52 @@ function Map(nbrEtage,taille,texture)  //class map (contient les matrice qui rep
 		}
 	}
 }
+
+function Portails(nord,sub,est,ouest,tab,largeur,remplissage)
+{
+	if (nord == true)
+	{
+		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		{
+			for (j=0;j<(tab.length/2);j++)
+			{
+				tab[i][j] = remplissage;
+			}
+		}
+	}
+
+	if (sud == true)
+	{
+		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		{
+			for (j=(tab.length-1);j>tab.length;j--)
+			{
+				tab[i][j] = remplissage;
+			}
+		}
+	}
+
+	if (ouest == true)
+	{
+		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		{
+			for (j=0;j<(tab.length/2);j++)
+			{
+				tab[j][i] = remplissage;
+			}
+		}
+	}
+
+	if (est == true)
+	{
+		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		{
+			for (j=(tab.lenght-1);j>(tab.length/2);j--)
+			{
+				tab[j][i] = remplissage;
+			}
+		}
+	}
+
+	return tab;
+}
