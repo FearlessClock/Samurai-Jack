@@ -142,9 +142,10 @@ function createFloor(side,it1,walls,it2,perc )
 	floor = simple(floor,it1);	//Creuse la carte
 	
 	FillWalls(floor, walls);	//remplit les murs du bord
-	floor = Portails(true, true ,true ,true, floor, 3, 0);
+
+	floor = Portails(true,true,true,true,floor,1,0);
 	
-	//floor = simple(floor,it2); // creuse une Seconde fois
+	floor = simple(floor,it2); // creuse une Seconde fois
 	
 	return floor;
 }
@@ -155,7 +156,7 @@ function Map(nbrEtage,taille,texture)  //class map (contient les matrice qui rep
 	this.texture = texture;
 	this.carte = new Array(nbrEtage);
 	
-	for(var i = 0; i<this.carte.length; i++){this.carte[i] = createFloor(taille,4,2,4,60);}
+	for(var i = 0; i<this.carte.length; i++){this.carte[i] = createFloor(taille,4,2,2,60);}
 	
 	this.actualiseCase = function(x,y,floor)
 	{
@@ -179,7 +180,7 @@ function Portails(nord,sud,est,ouest,tab,largeur,remplissage)
 {
 	if (nord == true)
 	{
-		for (i=tab.length-largeur;i<(tab.length/2)+largeur;i++)
+		for (i=(tab.length/2)-largeur;i<(tab.length/2)+largeur;i++)
 		{
 			for (j=0;j<(tab.length/2);j++)
 			{
@@ -190,9 +191,9 @@ function Portails(nord,sud,est,ouest,tab,largeur,remplissage)
 
 	if (sud == true)
 	{
-		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		for (i=(tab.length/2)-largeur;i<(tab.length/2)+largeur;i++)
 		{
-			for (j=(tab.length-1);j>tab.length;j--)
+			for (j=(tab.length-1);j>(tab.length/2);j--)
 			{
 				tab[i][j] = remplissage;
 			}
@@ -201,7 +202,7 @@ function Portails(nord,sud,est,ouest,tab,largeur,remplissage)
 
 	if (ouest == true)
 	{
-		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		for (i=(tab.length/2)-largeur;i<(tab.length/2)+largeur;i++)
 		{
 			for (j=0;j<(tab.length/2);j++)
 			{
@@ -212,9 +213,9 @@ function Portails(nord,sud,est,ouest,tab,largeur,remplissage)
 
 	if (est == true)
 	{
-		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		for (i=(tab.length/2)-largeur;i<(tab.length/2)+largeur;i++)
 		{
-			for (j=(tab.lenght-1);j>(tab.length/2);j--)
+			for (j=(tab.length-1);j>(tab.length/2);j--)
 			{
 				tab[j][i] = remplissage;
 			}

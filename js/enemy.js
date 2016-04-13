@@ -1,25 +1,4 @@
-//gestion du déplacement de Jack avec les touches
-function updateAI()
-{	
-	carte.actualiseCase(mob.x,mob.y,mob.floor); 
-	//Check if the direction is valide (No obstacle)
-	if(mob.CanMove(-1,0,carte.carte[mob.floor]) && jack.x < mob.x)
-	{
-		mob.move("left",carte.carte[mob.floor]);
-	}
-	else if(mob.CanMove(1,0,carte.carte[mob.floor]) &&jack.x > mob.x)
-	{
-		mob.move("right",carte.carte[mob.floor]);
-	}
-	else if(mob.CanMove(0,-1,carte.carte[mob.floor]) &&jack.y < mob.y)
-	{
-		mob.move("forward",carte.carte[mob.floor]);
-	}
-	else if(mob.CanMove(0,1,carte.carte[mob.floor]) &&jack.y > mob.y)
-	{
-		mob.move("back",carte.carte[mob.floor]);
-	}
-}
+
 
 //class Personnage
 function Enemy(url, x, y, floor) 
@@ -53,6 +32,29 @@ function Enemy(url, x, y, floor)
 		//console.log("dessin du perso");
 		ctx.drawImage(this.image,this.look*16,0,16,32,this.x*32,this.y*32,16,32);
 	}	
+
+	//gestion du déplacement de Jack avec les touches
+	this.updateAI = function()
+	{	
+		carte.actualiseCase(this.x,this.y,this.floor); 
+		//Check if the direction is valide (No obstacle)
+		if(this.CanMove(-1,0,carte.carte[this.floor]) && jack.x < this.x)
+		{
+			this.move("left",carte.carte[this.floor]);
+		}
+		else if(this.CanMove(1,0,carte.carte[this.floor]) &&jack.x > this.x)
+		{
+			this.move("right",carte.carte[this.floor]);
+		}
+		else if(this.CanMove(0,-1,carte.carte[this.floor]) &&jack.y < this.y)
+		{
+			this.move("forward",carte.carte[this.floor]);
+		}
+		else if(this.CanMove(0,1,carte.carte[this.floor]) &&jack.y > this.y)
+		{
+			this.move("back",carte.carte[this.floor]);
+		}
+	}
 	
 	this.move = function(side,map)
 	{
