@@ -142,8 +142,9 @@ function createFloor(side,it1,walls,it2,perc )
 	floor = simple(floor,it1);	//Creuse la carte
 	
 	FillWalls(floor, walls);	//remplit les murs du bord
+	floor = Portails(true, true ,true ,true, floor, 3, 0);
 	
-	floor = simple(floor,it2); // creuse une Seconde fois
+	//floor = simple(floor,it2); // creuse une Seconde fois
 	
 	return floor;
 }
@@ -174,11 +175,11 @@ function Map(nbrEtage,taille,texture)  //class map (contient les matrice qui rep
 	}
 }
 
-function Portails(nord,sub,est,ouest,tab,largeur,remplissage)
+function Portails(nord,sud,est,ouest,tab,largeur,remplissage)
 {
 	if (nord == true)
 	{
-		for (i=tab.length-largeur;i<(tab.length/2);i++)
+		for (i=tab.length-largeur;i<(tab.length/2)+largeur;i++)
 		{
 			for (j=0;j<(tab.length/2);j++)
 			{
