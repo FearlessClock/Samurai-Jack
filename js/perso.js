@@ -1,46 +1,4 @@
 //gestion du déplacement de Jack avec les touches
-function deplacement(event)
-{
-	var key = event.keyCode;
-	carte.actualiseCase(jack.x,jack.y,jack.floor);
-	switch (key) {
-    	case 37 :
-			jack.move("left",carte.carte[jack.floor]);
-    		break;
-			
-    	case 39 :
-			jack.move("right",carte.carte[jack.floor]);
-    		break;
-			
-    	case 38 :
-			jack.move("forward",carte.carte[jack.floor]);
-    		break;
-			
-    	case 40 :
-			jack.move("back",carte.carte[jack.floor]);
-    		break;
-			
-		case 65 :
-			jack.floor++;
-			if (jack.floor >4){jack.floor = 0;}
-			carte.aff(jack.floor);
-			jack.aff()
-    		break;
-			
-		case 90 :
-			jack.floor--;
-			if (jack.floor <0){jack.floor = 4;}
-			carte.aff(jack.floor);
-			jack.aff()
-    		break;
-    }
-	
-	
-}
-
-
-
-
 
 
 //class Personnage
@@ -54,6 +12,11 @@ function Perso(url, x, y, floor)
 	this.floor = floor;
 	this.x = x;
 	this.y = y;
+
+
+	this.attackX = -1;
+	this.attackY = -1;
+
 	this.look = 0; // 0 = back; 1 = right; 2 = left; 3 = face;
 	
 	this.image.onload = function()
@@ -69,7 +32,86 @@ function Perso(url, x, y, floor)
 			launch();
 		}
 	}
+
+	this.UpdatePlayer = function(event)
+	{
+	var key = event.keyCode;
+	switch (key) {
+    	case 37 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.move("left",carte.carte[this.floor]);
+    		break;
+			
+    	case 39 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.move("right",carte.carte[this.floor]);
+    		break;
+			
+    	case 38 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.move("forward",carte.carte[this.floor]);
+    		break;
+			
+    	case 40 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.move("back",carte.carte[this.floor]);
+    		break;
+			
+		case 65 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.floor++;
+			if (this.floor >4){this.floor = 0;}
+			carte.aff(this.floor);
+			this.aff()
+    		break;
+			
+		case 90 :
+			carte.actualiseCase(this.x,this.y,this.floor);
+			this.floor--;
+			if (this.floor <0){this.floor = 4;}
+			carte.aff(this.floor);
+			this.aff()
+    		break;
+
+    	default:
+    		if(this.look == 0)
+    		{
+    			this.attackY = this.y-1;
+    			this.attackX = this.x;
+    		}
+    		else if(this.look == 1)
+    		{
+    			this.attackY = this.y;
+    			this.attackX = this.x+1;
+    		}
+    		else if(this.look == 2)
+    		{
+    			this.attackY = this.y;
+    			this.attackX = this.x-1;
+    		}
+    		else if(this.look == 3)
+    		{
+    			this.attackY = this.y+1;
+    			this.attackX = this.x;
+    		}
+    		ctx.drawImage(this.image, 4*16,0,16,32,this.attackX*32,this.attackY*32,16,32);
+    		setTimeout(stop, 400);
+    		break;
+    }
 	
+	
+}
+	function stop()
+	{
+		jack.stopper();
+	}
+	this.stopper = function()
+	{
+		console.log(this.attackX, this.attackY, this.floor);
+		carte.actualiseCase(this.attackX,this.attackY,this.floor);
+		this.attackX = -1;
+		this.attackY = -1;
+	}
 	this.aff = function()
 	{
 		//console.log("dessin du perso");

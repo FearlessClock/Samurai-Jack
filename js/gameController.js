@@ -1,3 +1,5 @@
+
+
 //class Personnage
 function SetupUpdate() 
 {
@@ -44,19 +46,22 @@ function SetupUpdate()
 	this.mob[1] = new Enemy("image/mob.png", 15, 3, 0);
 	this.carte = "lol"; // Objet carte créer dans la fonction launch
 	
-	timeoutVar = setInterval(GameController, 500);
+	timeoutVar = setInterval(GameController, 700);
 
-	
 	function GameController()
 	{
 		//Get data
 		GetData();
 	}
+	this.GameUpdate = function (event)
+	{
+		this.jack.UpdatePlayer(event);
+	}
 	this.GetData = function()
 	{
 		for(var i = 0; i < 2; i++)
 		{
-			mob[i].updateAI();
+			mob[i].updateAI(this.jack, this.carte.carte[mob[i].floor]);
 		}
 	}
 	this.move = function(side,map)
