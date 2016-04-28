@@ -52,6 +52,19 @@ function SetupUpdate()
 	{
 		//Get data
 		GetData();
+		this.PlayerKill();
+	}
+	this.PlayerKill = function()
+	{
+		for(var i = 0; i < mob.length; i++)
+		{
+			var dis = Math.sqrt(Math.pow(mob[i].x-jack.x, 2) + Math.pow(mob[i].y - jack.y, 2));
+			console.log(dis);
+			if(dis < 1.6)
+			{
+				jack.Die();
+			}
+		}
 	}
 	this.GameUpdate = function (event)
 	{

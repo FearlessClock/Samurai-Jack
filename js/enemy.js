@@ -37,8 +37,7 @@ function Enemy(url, x, y, floor)
 	{	
 		if(this.isAlive)
 		{
-			var dis = Math.sqrt(Math.pow(this.x-player.x, 2) + Math.pow(this.y - player.y, 2));
-			console.log(dis);
+			var dis = Math.sqrt(Math.pow(this.x-player.attackX, 2) + Math.pow(this.y - player.attackY, 2));
 			if( dis < 2) 
 			{
 				console.log("DIE");
@@ -121,7 +120,6 @@ function Enemy(url, x, y, floor)
 		
 		if(map[this.x+L][this.y+H] >=2)
 		{
-			console.log(L + " " + H + " " + map[this.x+L][this.y+H]);
 			return false;
 		}
 		return true;

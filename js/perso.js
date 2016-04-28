@@ -13,6 +13,7 @@ function Perso(url, x, y, floor)
 	this.x = x;
 	this.y = y;
 
+	this.isAlive = true;
 
 	this.attackX = -1;
 	this.attackY = -1;
@@ -35,6 +36,8 @@ function Perso(url, x, y, floor)
 
 	this.UpdatePlayer = function(event)
 	{
+		if(this.isAlive)
+		{
 	var key = event.keyCode;
 	switch (key) {
     	case 37 :
@@ -97,6 +100,7 @@ function Perso(url, x, y, floor)
     		ctx.drawImage(this.image, 4*16,0,16,32,this.attackX*32,this.attackY*32,16,32);
     		setTimeout(stop, 400);
     		break;
+    	}
     }
 	
 	
@@ -104,6 +108,11 @@ function Perso(url, x, y, floor)
 	function stop()
 	{
 		jack.stopper();
+	}
+	this.Die = function()
+	{
+		this.isAlive = false;
+		console.log("He is dead");
 	}
 	this.stopper = function()
 	{
